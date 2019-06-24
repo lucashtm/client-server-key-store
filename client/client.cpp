@@ -32,7 +32,7 @@ vector<string> getCommand(){
 	return command;
 }
 // Driver code
-int main() {
+int main(int argc, char *argv[]) {
 	struct addrinfo hints, *res;
 	int sockfd;
 
@@ -41,8 +41,11 @@ int main() {
 	memset(&hints, 0, sizeof hints);
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
-
-	getaddrinfo(HOSTNAME, PORT, &hints, &res);
+	hints.ai_flags = AI_PASSIVE; 
+	if(argc > 1)
+		getaddrinfo(argv[1], argv[2], &hints, &res);
+	else
+		getaddrinfo(NULL, PORT, &hints, &res);
 
 	// make a socket:
 
@@ -59,7 +62,6 @@ int main() {
 	while(true){
 		cout << "[" << iterations << "]>>> ";
 		command = getCommand();
-		cout << command.size();
 		switch(command.size()){
 			case 1:{
 				system("clear");
