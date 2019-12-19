@@ -6,7 +6,8 @@ phases:
   build:
     commands:
       - g++ server/server.cpp -o fake-redis
+      - g++ client/client.cpp -o fake-redis-cli
 artifacts:
   files:
     - 'fake-redis'
-  name: fake-redis$(date +%Y-%m-%d)
+    - 'fake-redis-cli'
